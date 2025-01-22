@@ -16,12 +16,14 @@ document.addEventListener("DOMContentLoaded", function () {
         if (taskText === "") {
             alert("Please enter a task.");
             return;
+            taskInput.value.trim();
         }
-
+taskInput.value.trim();
         // Create task list item
         const listItem = document.createElement("li");
         listItem.textContent = taskText;
         listItem.classList.add("task-item");
+    
 
         // Create remove button
         const removeButton = document.createElement("button");
