@@ -1,68 +1,45 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-}
+document.addEventListener("DOMContentLoaded", function () {
+    // Select DOM elements
+    const addButton = document.getElementById("add-task");
+    const taskInput = document.getElementById("task-input");
+    const taskList = document.getElementById("task-list");
 
-#todo-app {
-    width: 100%;
-    max-width: 400px;
-    background: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-}
+    // Function to add a task
+    function addTask() {
+        const taskText = taskInput.value.trim();
+        
+        if (taskText === "") {
+            alert("Please enter a task.");
+            return;
+        }
 
-#task-input {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
+        // Create task list item
+        const listItem = document.createElement("li");
+        listItem.textContent = taskText;
 
-#add-task-btn {
-    width: 100%;
-    padding: 10px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
+        // Create remove button
+        const removeButton = document.createElement("button");
+        removeButton.textContent = "Remove";
+        removeButton.className = "remove-btn";
+        
+        // Remove task when button is clicked
+        removeButton.onclick = function () {
+            taskList.removeChild(listItem);
+        };
 
-#add-task-btn:hover {
-    background-color: #0056b3;
-}
+        // Append button to list item, then list item to list
+        listItem.appendChild(removeButton);
+        taskList.appendChild(listItem);
 
-ul {
-    list-style-type: none;
-    padding: 0;
-}
+        // Clear input field
+        taskInput.value = "";
+    }
 
-li {
-    background-color: #eeeeee;
-    margin-top: 8px;
-    padding: 10px;
-    border-radius: 4px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.remove-btn {
-    cursor: pointer;
-    background-color: #ff6347;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    padding: 5px 10px;
-}
-
-.remove-btn:hover {
-    background-color: #d9534f;
-}
+    // Event listeners
+    addButton.addEventListener("click", addTask);
+    taskInput.addEventListener("keypress", function (event) {
+        if (event.key === "Enter") {
+            addTask();
+        }
+    });
+});
